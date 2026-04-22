@@ -38,6 +38,8 @@ router.post("/register", async (req, res) => {
 // ================= LOGIN =================
 router.post("/login", async (req, res) => {
   try {
+    console.log("LOGIN HIT"); // 👈 ADD
+
     const { email, password } = req.body;
 
     const user = await Student.findOne({ email });
@@ -56,14 +58,15 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    console.log("TOKEN CREATED:", token); // 👈 ADD
+
     res.json({ token });
 
   } catch (err) {
-    console.log(err);
+    console.log("ERROR:", err); // 👈 IMPORTANT
     res.status(500).json({ msg: "Server Error" });
   }
 });
-
 
 // ================= GET USER =================
 router.get("/me", auth, async (req, res) => {
