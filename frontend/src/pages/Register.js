@@ -14,16 +14,18 @@ export default function Register() {
 
   const register = async () => {
     try {
-      await axios.post(
-        "https://student-login-authentication-project-1.onrender.com/api/register",
+      const res = await axios.post(
+        "https://student-login-authentication-project.onrender.com/api/register",
         data
       );
+
+      console.log("REGISTER RESPONSE:", res.data);
 
       alert("Registered Successfully");
       navigate("/login");
 
     } catch (err) {
-      console.log(err.response);
+      console.log("ERROR:", err.response);
       alert(err.response?.data?.msg || "Registration failed");
     }
   };
@@ -36,29 +38,37 @@ export default function Register() {
         <input
           className="input"
           placeholder="Name"
-          onChange={e => setData({ ...data, name: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, name: e.target.value })
+          }
         />
 
         <input
           className="input"
           placeholder="Email"
-          onChange={e => setData({ ...data, email: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, email: e.target.value })
+          }
         />
 
         <input
           type="password"
           className="input"
           placeholder="Password"
-          onChange={e => setData({ ...data, password: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, password: e.target.value })
+          }
         />
 
         <input
           className="input"
           placeholder="Course"
-          onChange={e => setData({ ...data, course: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, course: e.target.value })
+          }
         />
 
-        <button className="btn btn-blue" onClick={register}>
+        <button className="btn btn-green" onClick={register}>
           Register
         </button>
 

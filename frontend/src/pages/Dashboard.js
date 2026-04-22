@@ -12,27 +12,23 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
 
-  // Redirect if no token
+  // Redirect if not logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
+    if (!token) navigate("/login");
   }, [navigate]);
 
-  // Fetch user data
+  // Fetch user
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
 
-        console.log("TOKEN:", token); // debug
-
         const res = await axios.get(
-          "https://student-login-authentication-project-1.onrender.com/api/me",
+          "https://student-login-authentication-project.onrender.com/api/me",
           {
             headers: {
-              Authorization:  `Bearer ${token}`
+              Authorization: `Bearer ${token}`
             }
           }
         );
@@ -40,8 +36,7 @@ export default function Dashboard() {
         setUser(res.data);
 
       } catch (err) {
-        console.log("ERROR:", err.response);
-
+        console.log(err.response);
         alert("Session expired. Please login again.");
         localStorage.removeItem("token");
         navigate("/login");
@@ -57,16 +52,16 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        "https://student-login-authentication-project-1.onrender.com/api/update-password",
+        "https://student-login-authentication-project.onrender.com/api/update-password",
         password,
         {
           headers: {
-            Authorization:  `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         }
       );
 
-      alert("Password updated successfully");
+      alert("Password updated");
 
     } catch (err) {
       alert(err.response?.data?.msg || "Error updating password");
@@ -79,16 +74,16 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        "https://student-login-authentication-project-1.onrender.com/api/update-course",
+        "https://student-login-authentication-project.onrender.com/api/update-course",
         { course },
         {
           headers: {
-            Authorization:  `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         }
       );
 
-      alert("Course updated successfully");
+      alert("Course updated");
 
     } catch (err) {
       alert(err.response?.data?.msg || "Error updating course");
@@ -101,7 +96,6 @@ export default function Dashboard() {
     navigate("/login");
   };
 
-  // Loading state
   if (!user) return <h3>Loading... (wake server)</h3>;
 
   return (
