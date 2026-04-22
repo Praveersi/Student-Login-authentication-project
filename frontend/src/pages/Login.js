@@ -20,7 +20,7 @@ export default function Login() {
       console.log("LOGIN RESPONSE:", res.data);
 
       // ✅ Extract token properly
-      const token = res.data.token;
+      const token = res.data?.token;
 
       // ✅ Check if token exists
       if (!token) {
