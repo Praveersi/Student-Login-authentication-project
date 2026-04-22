@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #5f9cff, #6a5acd);
+  min-height: 100vh;
+}
+
+/* Center layout */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Glass card */
+.card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 30px;
+  width: 340px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Variants */
+.btn-blue {
+  background: #4facfe;
+  color: white;
+}
+.btn-blue:hover {
+  background: #00c6ff;
+}
+
+.btn-green {
+  background: #43e97b;
+  color: white;
+}
+.btn-green:hover {
+  background: #38f9d7;
+}
+
+.btn-red {
+  background: #ff4b5c;
+  color: white;
+}
+.btn-red:hover {
+  background: #ff6a6a;
+}
+
+/* Sections */
+.section {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Small text */
+.link {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #ddd;
+}
+.link:hover {
+  color: white;
+}
