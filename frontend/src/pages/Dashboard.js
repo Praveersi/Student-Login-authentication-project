@@ -21,7 +21,7 @@ export default function Dashboard() {
   // Fetch user data
   useEffect(() => {
     axios.get(
-      "https://student-login-authentication-project.onrender.com/api/me",
+      "https://student-login-authentication-project-1.onrender.com/api/me",
       {
         headers: { Authorization: token }
       }
