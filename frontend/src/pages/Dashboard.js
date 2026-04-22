@@ -34,7 +34,7 @@ export default function Dashboard() {
   const updatePassword = async () => {
     try {
       await axios.put(
-        "https://student-login-authentication-project.onrender.com/api/update-password",
+        "https://student-login-authentication-project-1.onrender.com/api/update-password",
         password,
         {
           headers: { Authorization: token }
