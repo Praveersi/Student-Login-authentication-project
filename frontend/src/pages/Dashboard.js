@@ -11,54 +11,87 @@ export default function Dashboard() {
   const [course, setCourse] = useState("");
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
-  // Redirect if not logged in
+  // Redirect if no token
   useEffect(() => {
-    if (!token) navigate("/login");
-  }, [token, navigate]);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // Fetch user data
   useEffect(() => {
-    axios.get(
-      "https://student-login-authentication-project-1.onrender.com/api/me",
-      {
-        headers: { Authorization: token }
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        console.log("TOKEN:", token); // debug
+
+        const res = await axios.get(
+          "https://student-login-authentication-project-1.onrender.com/api/me",
+          {
+            headers: {
+              Authorization: token
+            }
+          }
+        );
+
+        setUser(res.data);
+
+      } catch (err) {
+        console.log("ERROR:", err.response);
+
+        alert("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        navigate("/login");
       }
-    )
-    .then(res => setUser(res.data))
-    .catch(() => alert("Error loading user"));
-  }, [token]);
+    };
+
+    fetchUser();
+  }, [navigate]);
 
   // Update password
   const updatePassword = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       await axios.put(
         "https://student-login-authentication-project-1.onrender.com/api/update-password",
         password,
         {
-          headers: { Authorization: token }
+          headers: {
+            Authorization: token
+          }
         }
       );
-      alert("Password updated");
+
+      alert("Password updated successfully");
+
     } catch (err) {
-      alert("Error updating password");
+      alert(err.response?.data?.msg || "Error updating password");
     }
   };
 
   // Update course
   const updateCourse = async () => {
     try {
+      const token = localStorage.getItem("token");
+
       await axios.put(
         "https://student-login-authentication-project-1.onrender.com/api/update-course",
         { course },
         {
-          headers: { Authorization: token }
+          headers: {
+            Authorization: token
+          }
         }
       );
-      alert("Course updated");
+
+      alert("Course updated successfully");
+
     } catch (err) {
-      alert("Error updating course");
+      alert(err.response?.data?.msg || "Error updating course");
     }
   };
 
@@ -68,6 +101,7 @@ export default function Dashboard() {
     navigate("/login");
   };
 
+  // Loading state
   if (!user) return <h3>Loading... (wake server)</h3>;
 
   return (
@@ -85,7 +119,7 @@ export default function Dashboard() {
           <input
             className="input"
             placeholder="Old Password"
-            onChange={e =>
+            onChange={(e) =>
               setPassword({ ...password, oldPassword: e.target.value })
             }
           />
@@ -93,7 +127,7 @@ export default function Dashboard() {
           <input
             className="input"
             placeholder="New Password"
-            onChange={e =>
+            onChange={(e) =>
               setPassword({ ...password, newPassword: e.target.value })
             }
           />
@@ -107,7 +141,7 @@ export default function Dashboard() {
           <input
             className="input"
             placeholder="New Course"
-            onChange={e => setCourse(e.target.value)}
+            onChange={(e) => setCourse(e.target.value)}
           />
 
           <button className="btn btn-green" onClick={updateCourse}>
