@@ -13,7 +13,7 @@ export default function Login() {
   const login = async () => {
     try {
       const res = await axios.post(
-        "https://student-login-authentication-project.onrender.com/api/login",
+        "https://student-login-authentication-project-1.onrender.com/api/login",
         data
       );
 

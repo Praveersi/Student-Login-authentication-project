@@ -50,7 +50,7 @@ export default function Dashboard() {
   const updateCourse = async () => {
     try {
       await axios.put(
-        "https://student-login-authentication-project.onrender.com/api/update-course",
+        "https://student-login-authentication-project-1.onrender.com/api/update-course",
         { course },
         {
           headers: { Authorization: token }

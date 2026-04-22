@@ -15,7 +15,7 @@ export default function Register() {
   const register = async () => {
     try {
       await axios.post(
-        "https://student-login-authentication-project.onrender.com/api/register",
+        "https://student-login-authentication-project-1.onrender.com/api/register",
         data
       );
 
