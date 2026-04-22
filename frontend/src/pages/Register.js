@@ -17,8 +17,12 @@ export default function Register() {
       await axios.post("https://student-login-authentication-project.onrender.com", data);
       alert("Registered Successfully");
       navigate("/login");
-    } catch (err) {
-      alert(err.response?.data?.msg || "Error");
+    } 
+      catch (err) {
+  console.log(err.response);
+  alert(err.response?.data?.msg || "Registration failed");
+}
+      
     }
   };
 
