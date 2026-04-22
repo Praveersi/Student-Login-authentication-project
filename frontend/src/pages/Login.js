@@ -16,18 +16,28 @@ export default function Login() {
         "https://student-login-authentication-project-1.onrender.com/api/login",
         data
       );
- console.log("LOGIN RESPONSE:", res.data);
-  if (!token) {
-      alert("Token not received from server");
-      return;
-    }
-      localStorage.setItem("token", res.data.token);
+
+      console.log("LOGIN RESPONSE:", res.data);
+
+      // ✅ Extract token properly
+      const token = res.data.token;
+
+      // ✅ Check if token exists
+      if (!token) {
+        alert("Token not received from server");
+        return;
+      }
+
+      // ✅ Save token
+      localStorage.setItem("token", token);
+
       alert("Login Successful");
 
+      // ✅ Redirect
       navigate("/dashboard");
 
     } catch (err) {
-      console.log(err.response);
+      console.log("ERROR:", err.response);
       alert(err.response?.data?.msg || "Login failed");
     }
   };
@@ -40,14 +50,18 @@ export default function Login() {
         <input
           className="input"
           placeholder="Email"
-          onChange={e => setData({ ...data, email: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, email: e.target.value })
+          }
         />
 
         <input
           type="password"
           className="input"
           placeholder="Password"
-          onChange={e => setData({ ...data, password: e.target.value })}
+          onChange={(e) =>
+            setData({ ...data, password: e.target.value })
+          }
         />
 
         <button className="btn btn-blue" onClick={login}>
