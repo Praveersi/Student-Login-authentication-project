@@ -32,7 +32,7 @@ export default function Dashboard() {
           "https://student-login-authentication-project-1.onrender.com/api/me",
           {
             headers: {
-              Authorization: token
+              Authorization:  `Bearer ${token}`
             }
           }
         );
@@ -61,7 +61,7 @@ export default function Dashboard() {
         password,
         {
           headers: {
-            Authorization: token
+            Authorization:  `Bearer ${token}`
           }
         }
       );
@@ -83,7 +83,7 @@ export default function Dashboard() {
         { course },
         {
           headers: {
-            Authorization: token
+            Authorization:  `Bearer ${token}`
           }
         }
       );
