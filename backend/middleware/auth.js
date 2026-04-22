@@ -1,9 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
- const jwt = require("jsonwebtoken");
-
-module.exports = function (req, res, next) {
   let token = req.header("Authorization");
 
   if (!token) {
@@ -11,29 +8,19 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    // 🔥 FIX: remove "Bearer " if present
+    // 🔥 HANDLE BOTH CASES
     if (token.startsWith("Bearer ")) {
-      token = token.slice(7);
+      token = token.split(" ")[1];
     }
 
     const decoded = jwt.verify(token, "secret123");
-    req.user = decoded;
+
+    req.user = { id: decoded.id };
 
     next();
 
   } catch (err) {
-    console.log(err);
-    res.status(401).json({ msg: "Invalid token" });
-  }
-};
-
-  if (!token) return res.status(401).json({ msg: "No token, denied" });
-
-  try {
-    const decoded = jwt.verify(token, "secret123");
-    req.user = { id: decoded.id }; // 
-    next();
-  } catch (err) {
+    console.log("AUTH ERROR:", err);
     res.status(401).json({ msg: "Invalid token" });
   }
 };
