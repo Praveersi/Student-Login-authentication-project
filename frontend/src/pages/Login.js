@@ -17,6 +17,10 @@ export default function Login() {
         data
       );
  console.log("LOGIN RESPONSE:", res.data);
+  if (!token) {
+      alert("Token not received from server");
+      return;
+    }
       localStorage.setItem("token", res.data.token);
       alert("Login Successful");
 
