@@ -16,7 +16,7 @@ export default function Login() {
         "https://student-login-authentication-project-1.onrender.com/api/login",
         data
       );
-
+ console.log("LOGIN RESPONSE:", res.data);
       localStorage.setItem("token", res.data.token);
       alert("Login Successful");
 
