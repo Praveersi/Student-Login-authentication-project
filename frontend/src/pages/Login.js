@@ -24,7 +24,7 @@ export default function Login() {
 
       // ✅ Check if token exists
       if (!token) {
-        alert("Token not received from server");
+       alert(JSON.stringify(res.data));
         return;
       }
 
