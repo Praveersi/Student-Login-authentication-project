@@ -33,11 +33,18 @@ export default function Register() {
   return (
     <div className="container">
       <div className="card">
-        <h2 className="title">Register</h2>
 
+        {/* 🔥 ICON */}
+        <div className="icon">📦</div>
+
+        {/* 🔥 TITLE */}
+        <h2 className="title">Lost & Found</h2>
+        <p className="subtitle">Create account to report items</p>
+
+        {/* INPUTS */}
         <input
           className="input"
-          placeholder="Name"
+          placeholder="Enter Name"
           onChange={(e) =>
             setData({ ...data, name: e.target.value })
           }
@@ -45,7 +52,7 @@ export default function Register() {
 
         <input
           className="input"
-          placeholder="Email"
+          placeholder="Enter Email"
           onChange={(e) =>
             setData({ ...data, email: e.target.value })
           }
@@ -54,7 +61,7 @@ export default function Register() {
         <input
           type="password"
           className="input"
-          placeholder="Password"
+          placeholder="Enter Password"
           onChange={(e) =>
             setData({ ...data, password: e.target.value })
           }
@@ -62,19 +69,22 @@ export default function Register() {
 
         <input
           className="input"
-          placeholder="Course"
+          placeholder="Course / Department"
           onChange={(e) =>
             setData({ ...data, course: e.target.value })
           }
         />
 
+        {/* BUTTON */}
         <button className="btn btn-green" onClick={register}>
           Register
         </button>
 
+        {/* LINK */}
         <p className="link" onClick={() => navigate("/login")}>
-          Already have an account?
+          Already have an account? Login
         </p>
+
       </div>
     </div>
   );

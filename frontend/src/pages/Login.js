@@ -40,11 +40,18 @@ export default function Login() {
   return (
     <div className="container">
       <div className="card">
-        <h2 className="title">Login</h2>
 
+        {/* 🔥 ICON */}
+        <div className="icon">🔍</div>
+
+        {/* 🔥 TITLE */}
+        <h2 className="title">Lost & Found</h2>
+        <p className="subtitle">Login to manage your items</p>
+
+        {/* INPUTS */}
         <input
           className="input"
-          placeholder="Email"
+          placeholder="Enter Email"
           onChange={(e) =>
             setData({ ...data, email: e.target.value })
           }
@@ -53,19 +60,22 @@ export default function Login() {
         <input
           type="password"
           className="input"
-          placeholder="Password"
+          placeholder="Enter Password"
           onChange={(e) =>
             setData({ ...data, password: e.target.value })
           }
         />
 
+        {/* BUTTON */}
         <button className="btn btn-blue" onClick={login}>
           Login
         </button>
 
+        {/* LINK */}
         <p className="link" onClick={() => navigate("/")}>
-          Create Account
+          New user? Register here
         </p>
+
       </div>
     </div>
   );

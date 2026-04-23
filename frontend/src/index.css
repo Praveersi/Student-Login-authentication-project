@@ -1,3 +1,4 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +6,9 @@
   font-family: "Segoe UI", sans-serif;
 }
 
+/* Background */
 body {
-  background: linear-gradient(135deg, #5f9cff, #6a5acd);
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
   min-height: 100vh;
 }
 
@@ -24,16 +26,23 @@ body {
   backdrop-filter: blur(12px);
   border-radius: 16px;
   padding: 30px;
-  width: 340px;
+  width: 350px;
   color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   text-align: center;
 }
 
 /* Title */
 .title {
-  font-size: 24px;
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 14px;
   margin-bottom: 20px;
+  color: #ddd;
 }
 
 /* Inputs */
@@ -90,7 +99,7 @@ body {
   border-top: 1px solid rgba(255,255,255,0.3);
 }
 
-/* Small text */
+/* Link */
 .link {
   margin-top: 10px;
   cursor: pointer;
@@ -98,4 +107,20 @@ body {
 }
 .link:hover {
   color: white;
+}
+
+/* NEW: Icon */
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* NEW: Input focus */
+.input:focus {
+  box-shadow: 0 0 5px rgba(255,255,255,0.6);
+}
+
+/* NEW: Button active */
+.btn:active {
+  transform: scale(0.98);
 }
