@@ -12,35 +12,36 @@ body {
   min-height: 100vh;
 }
 
-/* Center layout */
+/* Container (IMPORTANT FIX FOR DASHBOARD SCROLL) */
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  padding: 20px;
 }
 
 /* Glass card */
 .card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 30px;
-  width: 350px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
+  padding: 25px;
+  width: 380px;
   color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 
 /* Title */
 .title {
   font-size: 26px;
+  text-align: center;
   margin-bottom: 5px;
 }
 
 /* Subtitle */
 .subtitle {
   font-size: 14px;
+  text-align: center;
   margin-bottom: 20px;
   color: #ddd;
 }
@@ -53,6 +54,13 @@ body {
   border-radius: 8px;
   border: none;
   outline: none;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* Placeholder color */
+.input::placeholder {
+  color: #eee;
 }
 
 /* Buttons */
@@ -94,9 +102,14 @@ body {
 
 /* Sections */
 .section {
-  margin-top: 15px;
-  padding-top: 10px;
+  margin-top: 18px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Section heading */
+.section h4 {
+  margin-bottom: 8px;
 }
 
 /* Link */
@@ -104,23 +117,66 @@ body {
   margin-top: 10px;
   cursor: pointer;
   color: #ddd;
+  text-align: center;
 }
 .link:hover {
   color: white;
 }
 
-/* NEW: Icon */
+/* Icon */
 .icon {
   font-size: 40px;
+  text-align: center;
   margin-bottom: 10px;
 }
 
-/* NEW: Input focus */
+/* Input focus */
 .input:focus {
-  box-shadow: 0 0 5px rgba(255,255,255,0.6);
+  box-shadow: 0 0 6px rgba(255,255,255,0.7);
 }
 
-/* NEW: Button active */
+/* Button click */
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+}
+
+/* 🔥 ITEM CARD (BIG IMPROVEMENT) */
+.item-card {
+  background: rgba(255,255,255,0.15);
+  padding: 12px;
+  border-radius: 10px;
+  margin: 10px 0;
+  transition: 0.3s;
+}
+
+.item-card:hover {
+  transform: scale(1.02);
+  background: rgba(255,255,255,0.2);
+}
+
+/* Buttons inside item */
+.item-card .btn {
+  width: 48%;
+}
+
+/* Flex buttons */
+.item-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Scroll for long dashboard */
+.card {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.card::-webkit-scrollbar {
+  width: 5px;
+}
+.card::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 10px;
 }

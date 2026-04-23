@@ -2,14 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const BASE_URL = "https://lost-found-item-management-system-yyr1.onrender.com";
+
 export default function Dashboard() {
   const [user, setUser] = useState(null);
-
-  const [password, setPassword] = useState({
-    oldPassword: "",
-    newPassword: ""
-  });
-
+  const [password, setPassword] = useState({ oldPassword: "", newPassword: "" });
   const [course, setCourse] = useState("");
 
   const [item, setItem] = useState({
@@ -38,15 +35,11 @@ export default function Dashboard() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get(
-          "https://student-login-authentication-project.onrender.com/api/me",
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        );
+        const res = await axios.get(`${BASE_URL}/api/me`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
 
         setUser(res.data);
-
       } catch {
         alert("Session expired");
         localStorage.removeItem("token");
@@ -61,12 +54,9 @@ export default function Dashboard() {
   const fetchItems = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await axios.get(
-      "https://student-login-authentication-project.onrender.com/api/items",
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    );
+    const res = await axios.get(`${BASE_URL}/api/items`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
     setItems(res.data);
   };
@@ -75,26 +65,20 @@ export default function Dashboard() {
     fetchItems();
   }, []);
 
-  // Add / Update item
+  // Add / Update
   const addItem = async () => {
     const token = localStorage.getItem("token");
 
     if (editingId) {
-      await axios.put(
-        `https://student-login-authentication-project.onrender.com/api/items/${editingId}`,
-        item,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
+      await axios.put(`${BASE_URL}/api/items/${editingId}`, item, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       alert("Item updated");
       setEditingId(null);
     } else {
-      await axios.post(
-        "https://student-login-authentication-project.onrender.com/api/items",
-        item,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
+      await axios.post(`${BASE_URL}/api/items`, item, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       alert("Item added");
     }
 
@@ -109,41 +93,33 @@ export default function Dashboard() {
     fetchItems();
   };
 
-  // Delete item
   const deleteItem = async (id) => {
     const token = localStorage.getItem("token");
 
-    await axios.delete(
-      `https://student-login-authentication-project.onrender.com/api/items/${id}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    await axios.delete(`${BASE_URL}/api/items/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
     alert("Item deleted");
     fetchItems();
   };
 
-  // Update password
   const updatePassword = async () => {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      "https://student-login-authentication-project.onrender.com/api/update-password",
-      password,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    await axios.put(`${BASE_URL}/api/update-password`, password, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
     alert("Password updated");
   };
 
-  // Update course
   const updateCourse = async () => {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      "https://student-login-authentication-project.onrender.com/api/update-course",
-      { course },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    await axios.put(`${BASE_URL}/api/update-course`, { course }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
     alert("Course updated");
   };
@@ -163,59 +139,56 @@ export default function Dashboard() {
 
         {/* USER */}
         <div className="section">
-          <p><b>Name:</b> {user.name}</p>
-          <p><b>Email:</b> {user.email}</p>
-          <p><b>Course:</b> {user.course}</p>
+          <p><b>👤 Name:</b> {user.name}</p>
+          <p><b>📧 Email:</b> {user.email}</p>
+          <p><b>🎓 Course:</b> {user.course}</p>
         </div>
 
         {/* PASSWORD */}
         <div className="section">
+          <h4>🔐 Change Password</h4>
           <input placeholder="Old Password"
             onChange={e => setPassword({ ...password, oldPassword: e.target.value })} />
-
           <input placeholder="New Password"
             onChange={e => setPassword({ ...password, newPassword: e.target.value })} />
-
-          <button onClick={updatePassword}>Update Password</button>
+          <button className="btn btn-blue" onClick={updatePassword}>
+            Update Password
+          </button>
         </div>
 
         {/* COURSE */}
         <div className="section">
+          <h4>🎓 Update Course</h4>
           <input placeholder="New Course"
             onChange={e => setCourse(e.target.value)} />
-
-          <button onClick={updateCourse}>Update Course</button>
+          <button className="btn btn-green" onClick={updateCourse}>
+            Update Course
+          </button>
         </div>
 
-        {/* ADD / UPDATE ITEM */}
+        {/* ADD ITEM */}
         <div className="section">
-          <h3>{editingId ? "Update Item" : "Add Item"}</h3>
+          <h4>{editingId ? "✏️ Update Item" : "➕ Add Item"}</h4>
 
-          <input placeholder="Item Name"
-            value={item.name}
+          <input placeholder="Item Name" value={item.name}
             onChange={e => setItem({ ...item, name: e.target.value })} />
 
-          <input placeholder="Description"
-            value={item.description}
+          <input placeholder="Description" value={item.description}
             onChange={e => setItem({ ...item, description: e.target.value })} />
 
-          <select
-            value={item.type}
-            onChange={e => setItem({ ...item, type: e.target.value })}
-          >
+          <select value={item.type}
+            onChange={e => setItem({ ...item, type: e.target.value })}>
             <option>Lost</option>
             <option>Found</option>
           </select>
 
-          <input placeholder="Location"
-            value={item.location}
+          <input placeholder="Location" value={item.location}
             onChange={e => setItem({ ...item, location: e.target.value })} />
 
-          <input placeholder="Contact"
-            value={item.contact}
+          <input placeholder="Contact" value={item.contact}
             onChange={e => setItem({ ...item, contact: e.target.value })} />
 
-          <button onClick={addItem}>
+          <button className="btn btn-blue" onClick={addItem}>
             {editingId ? "Update Item" : "Add Item"}
           </button>
         </div>
@@ -223,14 +196,15 @@ export default function Dashboard() {
         {/* SEARCH */}
         <div className="section">
           <input
-            placeholder="Search items..."
+            className="input"
+            placeholder="🔍 Search items..."
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
-        {/* DISPLAY ITEMS */}
+        {/* ITEMS */}
         <div className="section">
-          <h3>All Items</h3>
+          <h3>📋 All Items</h3>
 
           {items
             .filter(i =>
@@ -238,27 +212,33 @@ export default function Dashboard() {
               i.type.toLowerCase().includes(search.toLowerCase())
             )
             .map((i) => (
-              <div key={i._id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
+              <div key={i._id} className="item-card">
+
                 <p><b>{i.name}</b> ({i.type})</p>
                 <p>{i.description}</p>
-                <p>{i.location}</p>
-                <p>{i.contact}</p>
+                <p>📍 {i.location}</p>
+                <p>📞 {i.contact}</p>
 
-                <button onClick={() => {
-                  setItem(i);
-                  setEditingId(i._id);
-                }}>
-                  Edit
-                </button>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <button className="btn btn-green" onClick={() => {
+                    setItem(i);
+                    setEditingId(i._id);
+                  }}>
+                    Edit
+                  </button>
 
-                <button onClick={() => deleteItem(i._id)}>
-                  Delete
-                </button>
+                  <button className="btn btn-red" onClick={() => deleteItem(i._id)}>
+                    Delete
+                  </button>
+                </div>
+
               </div>
             ))}
         </div>
 
-        <button onClick={logout}>Logout</button>
+        <button className="btn btn-red" onClick={logout}>
+          Logout
+        </button>
 
       </div>
     </div>

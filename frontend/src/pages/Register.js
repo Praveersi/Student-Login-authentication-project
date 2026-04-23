@@ -10,23 +10,32 @@ export default function Register() {
     course: ""
   });
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const register = async () => {
+    // 🔥 basic validation
+    if (!data.name || !data.email || !data.password) {
+      alert("Please fill all required fields");
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const res = await axios.post(
-        "https://student-login-authentication-project.onrender.com/api/register",
+        "https://lost-found-item-management-system-yyr1.onrender.com/api/register",
         data
       );
-
-      console.log("REGISTER RESPONSE:", res.data);
 
       alert("Registered Successfully");
       navigate("/login");
 
     } catch (err) {
-      console.log("ERROR:", err.response);
       alert(err.response?.data?.msg || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,17 +43,18 @@ export default function Register() {
     <div className="container">
       <div className="card">
 
-        {/* 🔥 ICON */}
+        {/* ICON */}
         <div className="icon">📦</div>
 
-        {/* 🔥 TITLE */}
+        {/* TITLE */}
         <h2 className="title">Lost & Found</h2>
         <p className="subtitle">Create account to report items</p>
 
         {/* INPUTS */}
         <input
           className="input"
-          placeholder="Enter Name"
+          placeholder="Name"
+          value={data.name}
           onChange={(e) =>
             setData({ ...data, name: e.target.value })
           }
@@ -52,7 +62,8 @@ export default function Register() {
 
         <input
           className="input"
-          placeholder="Enter Email"
+          placeholder="Email"
+          value={data.email}
           onChange={(e) =>
             setData({ ...data, email: e.target.value })
           }
@@ -61,7 +72,8 @@ export default function Register() {
         <input
           type="password"
           className="input"
-          placeholder="Enter Password"
+          placeholder="Password"
+          value={data.password}
           onChange={(e) =>
             setData({ ...data, password: e.target.value })
           }
@@ -70,14 +82,19 @@ export default function Register() {
         <input
           className="input"
           placeholder="Course / Department"
+          value={data.course}
           onChange={(e) =>
             setData({ ...data, course: e.target.value })
           }
         />
 
         {/* BUTTON */}
-        <button className="btn btn-green" onClick={register}>
-          Register
+        <button
+          className="btn btn-green"
+          onClick={register}
+          disabled={loading}
+        >
+          {loading ? "Registering..." : "Register"}
         </button>
 
         {/* LINK */}

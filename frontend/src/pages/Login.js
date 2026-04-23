@@ -8,21 +8,24 @@ export default function Login() {
     password: ""
   });
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const login = async () => {
     try {
+      setLoading(true);
+
       const res = await axios.post(
-        "https://student-login-authentication-project.onrender.com/api/login",
+        "https://lost-found-item-management-system-yyr1.onrender.com/api/login",
         data
       );
-
-      console.log("LOGIN RESPONSE:", res.data);
 
       const token = res.data?.token;
 
       if (!token) {
         alert("Token not received from server");
+        setLoading(false);
         return;
       }
 
@@ -32,8 +35,9 @@ export default function Login() {
       navigate("/dashboard");
 
     } catch (err) {
-      console.log("ERROR:", err.response);
       alert(err.response?.data?.msg || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,17 +45,18 @@ export default function Login() {
     <div className="container">
       <div className="card">
 
-        {/* 🔥 ICON */}
-        <div className="icon">🔍</div>
+        {/* ICON */}
+        <div className="icon">🔐</div>
 
-        {/* 🔥 TITLE */}
+        {/* TITLE */}
         <h2 className="title">Lost & Found</h2>
         <p className="subtitle">Login to manage your items</p>
 
         {/* INPUTS */}
         <input
           className="input"
-          placeholder="Enter Email"
+          placeholder="Email"
+          value={data.email}
           onChange={(e) =>
             setData({ ...data, email: e.target.value })
           }
@@ -60,15 +65,20 @@ export default function Login() {
         <input
           type="password"
           className="input"
-          placeholder="Enter Password"
+          placeholder="Password"
+          value={data.password}
           onChange={(e) =>
             setData({ ...data, password: e.target.value })
           }
         />
 
         {/* BUTTON */}
-        <button className="btn btn-blue" onClick={login}>
-          Login
+        <button
+          className="btn btn-blue"
+          onClick={login}
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
 
         {/* LINK */}
